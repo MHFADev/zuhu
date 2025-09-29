@@ -105,20 +105,20 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
             onClick={() => closeOrderForm()}
           >
             <motion.div
-              className="bg-white rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+              className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700"
               initial={{ scale: 0.5, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.5, y: 50 }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
                   <span>🛒</span>
                   Keranjang Pesanan
                 </h2>
                 <button
                   onClick={() => closeOrderForm()}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-2xl"
                 >
                   ✕
                 </button>
@@ -126,12 +126,12 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
 
               {/* Product Selection */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-4">Pilih Menu:</h3>
+                <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Pilih Menu:</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {products.map(product => (
                     <motion.button
                       key={product.id}
-                      className="flex items-center gap-3 p-3 border rounded-lg hover:bg-primary-50 hover:border-primary-300 transition-all"
+                      className="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 hover:border-primary-300 dark:hover:border-primary-500 transition-all"
                       onClick={() => addToOrder(product)}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -141,12 +141,12 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
                          product.category === 'pastry' ? '🧁' : '🥟'}
                       </div>
                       <div className="flex-1 text-left">
-                        <div className="font-medium">{product.name}</div>
-                        <div className="text-sm text-primary-600 font-semibold">
+                        <div className="font-medium text-gray-800 dark:text-gray-200">{product.name}</div>
+                        <div className="text-sm text-primary-600 dark:text-primary-400 font-semibold">
                           {formatPrice(product.price)}
                         </div>
                       </div>
-                      <span className="text-primary-500">+</span>
+                      <span className="text-primary-500 dark:text-primary-400">+</span>
                     </motion.button>
                   ))}
                 </div>

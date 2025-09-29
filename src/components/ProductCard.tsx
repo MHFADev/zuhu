@@ -48,7 +48,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <motion.div
-      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300"
+      className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
       whileHover={{ 
         y: -10,
         transition: { duration: 0.3 }
@@ -82,7 +82,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <div className="p-6">
         <motion.h3 
-          className="text-xl font-bold text-gray-800 mb-2"
+          className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -91,7 +91,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </motion.h3>
         
         <motion.p 
-          className="text-gray-600 mb-4 leading-relaxed"
+          className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -101,7 +101,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex items-center justify-between">
           <motion.span 
-            className="text-2xl font-bold text-primary-600"
+            className="text-2xl font-bold text-primary-600 dark:text-primary-400"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
@@ -111,7 +111,7 @@ export function ProductCard({ product }: ProductCardProps) {
           
           <motion.button
             onClick={() => addToOrder(product)}
-            className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-full font-medium transition-all duration-300 hover:shadow-lg"
+            className="bg-primary-500 hover:bg-primary-600 dark:bg-primary-600 dark:hover:bg-primary-700 text-white px-4 py-2 rounded-full font-medium transition-all duration-300 hover:shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0, x: 20 }}

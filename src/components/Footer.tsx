@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 export function Footer() {
   return (
     <motion.footer 
-      className="bg-gray-800 text-white py-12 px-4 mt-20"
+      className="bg-gray-800 dark:bg-gray-950 text-white py-12 px-4 mt-20 transition-colors duration-300"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
@@ -53,7 +53,7 @@ export function Footer() {
             <div className="space-y-3 text-gray-300">
               <div className="flex items-center gap-3">
                 <span className="text-green-400">📱</span>
-                <span>WhatsApp: +62 812-3456-7890</span>
+                <span>WhatsApp: +62 858-8326-8684</span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-blue-400">📧</span>

@@ -75,8 +75,8 @@ export function ProductGrid({ products }: ProductGridProps) {
             onClick={() => setSelectedCategory(category.id)}
             className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
               selectedCategory === category.id
-                ? 'bg-primary-500 text-white shadow-lg scale-105'
-                : 'bg-white text-gray-700 hover:bg-primary-100 hover:text-primary-600 shadow-md'
+                ? 'bg-primary-500 dark:bg-primary-600 text-white shadow-lg scale-105'
+                : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-gray-600 hover:text-primary-600 dark:hover:text-primary-400 shadow-md border border-gray-200 dark:border-gray-600'
             }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

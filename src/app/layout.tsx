@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import '../styles/globals.css'
 import { OrderProvider } from '@/context/OrderContext'
+import { ThemeProvider } from '@/context/ThemeContext'
 
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({ 
@@ -29,12 +30,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${inter.className} scroll-smooth`}>
-      <body className={`${poppins.className} antialiased bg-white text-gray-800`}>
-        <OrderProvider>
-          <main className="min-h-screen">
-            {children}
-          </main>
-        </OrderProvider>
+      <body className={`${poppins.className} antialiased bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300`}>
+        <ThemeProvider>
+          <OrderProvider>
+            <main className="min-h-screen">
+              {children}
+            </main>
+          </OrderProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

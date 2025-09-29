@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 export function HeroSection() {
   return (
     <motion.section 
-      className="relative py-20 px-4 text-center bg-gradient-to-r from-primary-500 to-primary-600 text-white overflow-hidden"
+      className="relative py-20 px-4 text-center bg-gradient-to-r from-primary-500 to-primary-600 dark:from-primary-700 dark:to-primary-800 text-white overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
