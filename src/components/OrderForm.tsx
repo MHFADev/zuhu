@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useOrder } from '@/context/OrderContext'
 
 interface Product {
   id: string
@@ -16,50 +17,21 @@ interface OrderFormProps {
   products: Product[]
 }
 
-interface OrderItem {
-  product: Product
-  quantity: number
-}
-
 export function OrderForm({ products }: OrderFormProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [orderItems, setOrderItems] = useState<OrderItem[]>([])
+  const { 
+    orderItems, 
+    isOrderFormOpen, 
+    addToOrder, 
+    updateQuantity, 
+    closeOrderForm, 
+    getTotalItems, 
+    getTotalPrice,
+    openOrderForm
+  } = useOrder()
+  
   const [customerName, setCustomerName] = useState('')
   const [customerAddress, setCustomerAddress] = useState('')
   const [customerPhone, setCustomerPhone] = useState('')
-
-  const addToOrder = (product: Product) => {
-    setOrderItems(prev => {
-      const existingItem = prev.find(item => item.product.id === product.id)
-      if (existingItem) {
-        return prev.map(item =>
-          item.product.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      }
-      return [...prev, { product, quantity: 1 }]
-    })
-    if (!isOpen) setIsOpen(true)
-  }
-
-  const updateQuantity = (productId: string, newQuantity: number) => {
-    if (newQuantity === 0) {
-      setOrderItems(prev => prev.filter(item => item.product.id !== productId))
-    } else {
-      setOrderItems(prev =>
-        prev.map(item =>
-          item.product.id === productId
-            ? { ...item, quantity: newQuantity }
-            : item
-        )
-      )
-    }
-  }
-
-  const getTotalPrice = () => {
-    return orderItems.reduce((total, item) => total + (item.product.price * item.quantity), 0)
-  }
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -96,7 +68,8 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
     }
 
     const message = encodeURIComponent(generateWhatsAppMessage())
-    const whatsappUrl = `https://wa.me/6281234567890?text=${message}`
+    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '6281234567890'
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`
     window.open(whatsappUrl, '_blank')
   }
 
@@ -105,7 +78,7 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
       {/* Floating Order Button */}
       <motion.button
         className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50"
-        onClick={() => setIsOpen(true)}
+        onClick={() => openOrderForm()}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         animate={{ y: [0, -5, 0] }}
@@ -113,9 +86,9 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
       >
         <div className="flex items-center gap-2">
           <span className="text-2xl">🛒</span>
-          {orderItems.length > 0 && (
+          {getTotalItems() > 0 && (
             <span className="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
-              {orderItems.reduce((sum, item) => sum + item.quantity, 0)}
+              {getTotalItems()}
             </span>
           )}
         </div>
@@ -123,13 +96,13 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
 
       {/* Order Form Modal */}
       <AnimatePresence>
-        {isOpen && (
+        {isOrderFormOpen && (
           <motion.div
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
+            onClick={() => closeOrderForm()}
           >
             <motion.div
               className="bg-white rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
@@ -144,7 +117,7 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
                   Keranjang Pesanan
                 </h2>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => closeOrderForm()}
                   className="text-gray-500 hover:text-gray-700 text-2xl"
                 >
                   ✕

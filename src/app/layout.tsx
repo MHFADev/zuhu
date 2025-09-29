@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import '../styles/globals.css'
+import { OrderProvider } from '@/context/OrderContext'
 
 const inter = Inter({ subsets: ['latin'] })
 const poppins = Poppins({ 
@@ -13,7 +14,11 @@ export const metadata: Metadata = {
   description: 'Discover traditional Indonesian pastries and modern treats at ZH Kitchen. Order fresh bolen, onde-onde, kue sus, and more for delivery.',
   keywords: 'Indonesian pastries, traditional cakes, bolen pisang, onde-onde, kue sus, pastel goreng, risol mayo, ZH Kitchen',
   authors: [{ name: 'ZH Kitchen' }],
-  viewport: 'width=device-width, initial-scale=1',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: '#f0770b',
 }
 
@@ -24,14 +29,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${inter.className} scroll-smooth`}>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#f0770b" />
-      </head>
       <body className={`${poppins.className} antialiased bg-white text-gray-800`}>
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <OrderProvider>
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </OrderProvider>
       </body>
     </html>
   )

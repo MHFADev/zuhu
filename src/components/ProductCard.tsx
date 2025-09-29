@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useOrder } from '@/context/OrderContext'
 
 interface Product {
   id: string
@@ -17,6 +18,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { addToOrder } = useOrder()
+  
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -107,6 +110,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </motion.span>
           
           <motion.button
+            onClick={() => addToOrder(product)}
             className="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-full font-medium transition-all duration-300 hover:shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
