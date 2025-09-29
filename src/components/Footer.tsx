@@ -53,7 +53,15 @@ export function Footer() {
             <div className="space-y-3 text-gray-300">
               <div className="flex items-center gap-3">
                 <span className="text-green-400">📱</span>
-                <span>WhatsApp: +62 858-8326-8684</span>
+                <span>WhatsApp: </span>
+                <a 
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '6285883268684'}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-green-400 hover:text-green-300 transition-colors underline"
+                >
+                  +62 858-8326-8684
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-blue-400">📧</span>

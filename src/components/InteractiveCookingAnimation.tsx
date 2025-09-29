@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const cookingSteps = [
   { emoji: '🥄', text: 'Mengaduk adonan...', duration: 2 },
@@ -13,6 +13,14 @@ const cookingSteps = [
 export function InteractiveCookingAnimation() {
   const [currentStep, setCurrentStep] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
+  const timeoutRefs = useRef<NodeJS.Timeout[]>([])
+
+  useEffect(() => {
+    return () => {
+      // Clean up all timeouts on unmount
+      timeoutRefs.current.forEach(timeout => clearTimeout(timeout))
+    }
+  }, [])
 
   const startCooking = () => {
     if (isAnimating) return
@@ -24,17 +32,19 @@ export function InteractiveCookingAnimation() {
     const animateStep = () => {
       if (stepIndex < cookingSteps.length) {
         setCurrentStep(stepIndex)
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
           stepIndex++
           if (stepIndex < cookingSteps.length) {
             animateStep()
           } else {
-            setTimeout(() => {
+            const finalTimeout = setTimeout(() => {
               setIsAnimating(false)
               setCurrentStep(0)
             }, 1000)
+            timeoutRefs.current.push(finalTimeout)
           }
         }, cookingSteps[stepIndex].duration * 1000)
+        timeoutRefs.current.push(timeout)
       }
     }
     animateStep()
