@@ -1,0 +1,44 @@
+{
+  "products": [
+    {
+      "id": "bolen",
+      "name": "Bolen Pisang",
+      "description": "Kue tradisional dengan isian pisang dan keju, lapisan kulit yang renyah",
+      "price": 15000,
+      "category": "traditional",
+      "image": "/images/bolen.jpg"
+    },
+    {
+      "id": "onde-onde",
+      "name": "Onde Onde",
+      "description": "Bola-bola wijen dengan isian kacang hijau yang lembut dan legit",
+      "price": 8000,
+      "category": "traditional",
+      "image": "/images/onde-onde.jpg"
+    },
+    {
+      "id": "kue-sus",
+      "name": "Kue Sus",
+      "description": "Kue sus klasik dengan vla vanilla yang creamy dan lembut",
+      "price": 12000,
+      "category": "pastry",
+      "image": "/images/kue-sus.jpg"
+    },
+    {
+      "id": "pastel",
+      "name": "Pastel Goreng",
+      "description": "Kulit pastel renyah dengan isian sayuran dan daging yang gurih",
+      "price": 10000,
+      "category": "savory",
+      "image": "/images/pastel.jpg"
+    },
+    {
+      "id": "risol",
+      "name": "Risol Mayo",
+      "description": "Risol modern dengan isian mayonnaise, daging, dan sayuran segar",
+      "price": 11000,
+      "category": "savory",
+      "image": "/images/risol.jpg"
+    }
+  ]
+}
