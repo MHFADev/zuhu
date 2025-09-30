@@ -55,3 +55,37 @@ Preferred communication style: Simple, everyday language.
 
 ## Font Services
 - **Google Fonts**: Inter and Poppins font families with multiple weights and optimized loading
+
+# Deployment Configuration
+
+## Vercel Deployment
+- **Platform**: Optimized for Vercel serverless deployment
+- **Build Command**: `npm run build` - Production build with TypeScript/ESLint validation
+- **Dev Command**: `npm run dev` - Development server on port 5000
+- **Region**: Singapore (sin1) for optimal Southeast Asia performance
+- **Functions**: Serverless functions with 1024MB memory, 10s max duration
+
+## Production Optimizations
+- **Image Optimization**: WebP/AVIF formats with responsive device sizes
+- **Compression**: Gzip compression enabled
+- **Minification**: SWC minifier for optimal bundle size
+- **Strict Mode**: React strict mode and TypeScript strict checking enabled
+- **Security**: Powered-by header removed for security
+
+## Environment Variables
+- **NEXT_PUBLIC_WHATSAPP_NUMBER**: WhatsApp business number for order integration
+
+# Recent Changes (September 30, 2025)
+
+## Design Improvements
+- Enhanced Hero Section with sophisticated gradients, floating food icons, animated CTA buttons, and trust indicators
+- Upgraded Header with glassmorphism effect, scroll-based animations, responsive mobile menu with hamburger animation
+- Modernized Product Cards with advanced hover effects, gradient overlays, quick view badge, and enhanced shadows
+- Professional Footer with 4-column layout, social media links, operating hours, and animated elements
+
+## Deployment Configuration
+- Configured Next.js for optimal Vercel deployment (removed standalone output mode)
+- Added vercel.json with Singapore region and function optimizations
+- Created comprehensive .gitignore for proper version control
+- Verified production build succeeds without errors
+- Development server running on port 5000 with hot reload
