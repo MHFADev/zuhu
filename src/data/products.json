@@ -1,44 +1,129 @@
 {
   "products": [
     {
-      "id": "bolen",
-      "name": "Bolen Pisang",
-      "description": "Kue tradisional dengan isian pisang dan keju, lapisan kulit yang renyah",
-      "price": 15000,
-      "category": "traditional",
-      "image": "/images/bolen.jpg"
+      "id": "pastel-sayur-bihun",
+      "name": "Pastel Sayur Bihun",
+      "description": "Pastel dengan isian sayur bihun",
+      "price": 2000,
+      "category": "pastel",
+      "image": "/logo.png"
+    },
+    {
+      "id": "pastel-sayur-telur",
+      "name": "Pastel Sayur Telur",
+      "description": "Pastel dengan isian sayur dan telur",
+      "price": 2500,
+      "category": "pastel",
+      "image": "/logo.png"
+    },
+    {
+      "id": "pastel-ayam",
+      "name": "Pastel Ayam",
+      "description": "Pastel dengan isian ayam",
+      "price": 3000,
+      "category": "pastel",
+      "image": "/logo.png"
+    },
+    {
+      "id": "risol-sayur",
+      "name": "Risol Sayur",
+      "description": "Risol dengan isian sayur",
+      "price": 2000,
+      "category": "risol",
+      "image": "/logo.png"
+    },
+    {
+      "id": "risol-rogout-sayur-ayam",
+      "name": "Risol Rogout Sayur Ayam",
+      "description": "Risol rogout dengan isian sayur dan ayam",
+      "price": 3000,
+      "category": "risol",
+      "image": "/logo.png"
+    },
+    {
+      "id": "risol-rogout-sayur",
+      "name": "Risol Rogout Sayur",
+      "description": "Risol rogout dengan isian sayur",
+      "price": 2500,
+      "category": "risol",
+      "image": "/logo.png"
+    },
+    {
+      "id": "kue-lumpur",
+      "name": "Kue Lumpur",
+      "description": "Kue lumpur tradisional",
+      "price": 2500,
+      "category": "kue",
+      "image": "/logo.png"
     },
     {
       "id": "onde-onde",
       "name": "Onde Onde",
-      "description": "Bola-bola wijen dengan isian kacang hijau yang lembut dan legit",
-      "price": 8000,
-      "category": "traditional",
-      "image": "/images/onde-onde.jpg"
+      "description": "Onde onde tradisional",
+      "price": 2500,
+      "category": "kue",
+      "image": "/logo.png"
     },
     {
-      "id": "kue-sus",
-      "name": "Kue Sus",
-      "description": "Kue sus klasik dengan vla vanilla yang creamy dan lembut",
-      "price": 12000,
-      "category": "pastry",
-      "image": "/images/kue-sus.jpg"
+      "id": "sosis-solo",
+      "name": "Sosis Solo",
+      "description": "Sosis solo dengan roti empuk",
+      "price": 3000,
+      "category": "kue",
+      "image": "/logo.png"
     },
     {
-      "id": "pastel",
-      "name": "Pastel Goreng",
-      "description": "Kulit pastel renyah dengan isian sayuran dan daging yang gurih",
-      "price": 10000,
-      "category": "savory",
-      "image": "/images/pastel.jpg"
+      "id": "kue-soes-premium",
+      "name": "Kue Soes Premium",
+      "description": "Kue soes dengan vla premium",
+      "price": 3000,
+      "category": "kue",
+      "image": "/logo.png"
     },
     {
-      "id": "risol",
-      "name": "Risol Mayo",
-      "description": "Risol modern dengan isian mayonnaise, daging, dan sayuran segar",
-      "price": 11000,
-      "category": "savory",
-      "image": "/images/risol.jpg"
+      "id": "pie-buah",
+      "name": "Pie Buah",
+      "description": "Pie dengan topping buah segar",
+      "price": 3500,
+      "category": "kue",
+      "image": "/logo.png"
+    },
+    {
+      "id": "pie-brownies",
+      "name": "Pie Brownies",
+      "description": "Pie dengan topping brownies cokelat",
+      "price": 3000,
+      "category": "kue",
+      "image": "/logo.png"
+    },
+    {
+      "id": "bolen-pisang",
+      "name": "Bolen Pisang",
+      "description": "Box isi 10",
+      "price": 30000,
+      "category": "box",
+      "image": "/logo.png",
+      "hasVariants": true,
+      "variants": [
+        {
+          "id": "bolen-pisang-keju",
+          "name": "Bolen Pisang Keju",
+          "price": 30000
+        },
+        {
+          "id": "bolen-pisang-coklat",
+          "name": "Bolen Pisang Coklat",
+          "price": 30000
+        }
+      ]
+    },
+    {
+      "id": "bolen-tape",
+      "name": "Bolen Tape",
+      "description": "Box isi 10",
+      "price": 30000,
+      "category": "box",
+      "image": "/logo.png"
     }
   ]
 }

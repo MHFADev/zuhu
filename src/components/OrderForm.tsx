@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useOrder } from '@/context/OrderContext'
+import { ShoppingCart, X, Send, Plus, Minus } from 'lucide-react'
 
 interface Product {
   id: string
@@ -46,19 +46,19 @@ export function OrderForm({ products }: OrderFormProps) {
       `• ${item.product.name} × ${item.quantity} = ${formatPrice(item.product.price * item.quantity)}`
     ).join('\n')
 
-    return `🍽️ *ZH KITCHEN ORDER*
+    return `*ZH KITCHEN ORDER*
 ======================
 ${items}
 ======================
 Total: ${formatPrice(getTotalPrice())}
 
-📋 Detail Customer:
+Detail Customer:
 Nama: ${customerName}
 No. HP: ${customerPhone}
 Alamat: ${customerAddress}
 ======================
 
-Terima kasih telah memesan di ZH Kitchen! 🙏`
+Terima kasih telah memesan di ZH Kitchen!`
   }
 
   const handleWhatsAppOrder = () => {
@@ -76,174 +76,151 @@ Terima kasih telah memesan di ZH Kitchen! 🙏`
   return (
     <>
       {/* Floating Order Button */}
-      <motion.button
-        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg z-50"
+      <button
+        className="fixed bottom-6 right-6 group flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-4 shadow-lg z-50 transition-all duration-300 transform hover:scale-110"
         onClick={() => openOrderForm()}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        animate={{ y: [0, -5, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
       >
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">🛒</span>
-          {getTotalItems() > 0 && (
-            <span className="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
-              {getTotalItems()}
-            </span>
-          )}
-        </div>
-      </motion.button>
+        <ShoppingCart className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" />
+        <span className="font-semibold">Keranjang</span>
+        {getTotalItems() > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center animate-pulse">
+            {getTotalItems()}
+          </span>
+        )}
+      </button>
 
       {/* Order Form Modal */}
-      <AnimatePresence>
-        {isOrderFormOpen && (
-          <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => closeOrderForm()}
+      {isOrderFormOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-all duration-300"
+          onClick={() => closeOrderForm()}
+        >
+          <div
+            className="bg-white dark:bg-gray-800 p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700 transform transition-all duration-300 scale-100"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700"
-              initial={{ scale: 0.5, y: 50 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.5, y: 50 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-                  <span>🛒</span>
-                  Keranjang Pesanan
-                </h2>
-                <button
-                  onClick={() => closeOrderForm()}
-                  className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-2xl"
-                >
-                  ✕
-                </button>
-              </div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <ShoppingCart className="w-6 h-6" />
+                Keranjang Pesanan
+              </h2>
+              <button
+                onClick={() => closeOrderForm()}
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300 hover:rotate-90 transform"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
 
-              {/* Product Selection */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">Pilih Menu:</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {products.map(product => (
-                    <motion.button
-                      key={product.id}
-                      className="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-primary-50 dark:hover:bg-gray-700 hover:border-primary-300 dark:hover:border-primary-500 transition-all"
-                      onClick={() => addToOrder(product)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <div className="text-2xl">
-                        {product.category === 'traditional' ? '🏮' :
-                         product.category === 'pastry' ? '🧁' : '🥟'}
+            {/* Product Selection */}
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Pilih Menu:</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {products.map(product => (
+                  <button
+                    key={product.id}
+                    className="group flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
+                    onClick={() => addToOrder(product)}
+                  >
+                    <div className="flex-1 text-left">
+                      <div className="font-medium text-gray-900 dark:text-white">{product.name}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        {formatPrice(product.price)}
                       </div>
-                      <div className="flex-1 text-left">
-                        <div className="font-medium text-gray-800 dark:text-gray-200">{product.name}</div>
-                        <div className="text-sm text-primary-600 dark:text-primary-400 font-semibold">
-                          {formatPrice(product.price)}
+                    </div>
+                    <Plus className="w-5 h-5 text-gray-900 dark:text-white transition-transform duration-300 group-hover:rotate-90" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Order Items */}
+            {orderItems.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Pesanan Anda:</h3>
+                <div className="space-y-3">
+                  {orderItems.map(item => (
+                    <div
+                      key={item.product.id}
+                      className="flex items-center gap-4 p-3 bg-gray-50 dark:bg-gray-700 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                    >
+                      <div className="flex-1">
+                        <div className="font-medium text-gray-900 dark:text-white">{item.product.name}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                          {formatPrice(item.product.price)} × {item.quantity}
                         </div>
                       </div>
-                      <span className="text-primary-500 dark:text-primary-400">+</span>
-                    </motion.button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                          className="bg-gray-300 hover:bg-gray-400 text-gray-900 w-8 h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                        <span className="w-8 text-center font-semibold text-gray-900 dark:text-white">{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                          className="bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900 w-8 h-8 flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <div className="font-bold text-gray-900 dark:text-white min-w-[100px] text-right">
+                        {formatPrice(item.product.price * item.quantity)}
+                      </div>
+                    </div>
                   ))}
                 </div>
-              </div>
-
-              {/* Order Items */}
-              {orderItems.length > 0 && (
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-4">Pesanan Anda:</h3>
-                  <div className="space-y-3">
-                    {orderItems.map(item => (
-                      <motion.div
-                        key={item.product.id}
-                        className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                      >
-                        <div className="flex-1">
-                          <div className="font-medium">{item.product.name}</div>
-                          <div className="text-sm text-gray-600">
-                            {formatPrice(item.product.price)} × {item.quantity}
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center"
-                          >
-                            −
-                          </button>
-                          <span className="w-8 text-center font-semibold">{item.quantity}</span>
-                          <button
-                            onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                            className="bg-primary-500 hover:bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center"
-                          >
-                            +
-                          </button>
-                        </div>
-                        <div className="font-bold text-primary-600 min-w-[100px] text-right">
-                          {formatPrice(item.product.price * item.quantity)}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <div className="flex justify-between items-center text-xl font-bold">
-                      <span>Total:</span>
-                      <span className="text-primary-600">{formatPrice(getTotalPrice())}</span>
-                    </div>
+                
+                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex justify-between items-center text-xl font-bold text-gray-900 dark:text-white">
+                    <span>Total:</span>
+                    <span>{formatPrice(getTotalPrice())}</span>
                   </div>
                 </div>
-              )}
-
-              {/* Customer Information */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-4">Data Customer:</h3>
-                <div className="space-y-4">
-                  <input
-                    type="text"
-                    placeholder="Nama Lengkap"
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  />
-                  <input
-                    type="tel"
-                    placeholder="Nomor WhatsApp"
-                    value={customerPhone}
-                    onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  />
-                  <textarea
-                    placeholder="Alamat Lengkap"
-                    value={customerAddress}
-                    onChange={(e) => setCustomerAddress(e.target.value)}
-                    rows={3}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  />
-                </div>
               </div>
+            )}
 
-              {/* Order Button */}
-              <motion.button
-                onClick={handleWhatsAppOrder}
-                className="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-lg font-semibold flex items-center justify-center gap-2 text-lg"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                disabled={orderItems.length === 0 || !customerName || !customerPhone || !customerAddress}
-              >
-                <span>📱</span>
-                Pesan via WhatsApp
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {/* Customer Information */}
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Data Customer:</h3>
+              <div className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Nama Lengkap"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white transition-all duration-300"
+                />
+                <input
+                  type="tel"
+                  placeholder="Nomor WhatsApp"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white transition-all duration-300"
+                />
+                <textarea
+                  placeholder="Alamat Lengkap"
+                  value={customerAddress}
+                  onChange={(e) => setCustomerAddress(e.target.value)}
+                  rows={3}
+                  className="w-full p-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-white transition-all duration-300"
+                />
+              </div>
+            </div>
+
+            {/* Order Button */}
+            <button
+              onClick={handleWhatsAppOrder}
+              className="group w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-4 font-semibold text-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105"
+              disabled={orderItems.length === 0 || !customerName || !customerPhone || !customerAddress}
+            >
+              <Send className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+              Pesan via WhatsApp
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }
