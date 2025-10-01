@@ -46,19 +46,21 @@ export function OrderForm({ products }: OrderFormProps) {
       `• ${item.product.name} × ${item.quantity} = ${formatPrice(item.product.price * item.quantity)}`
     ).join('\n')
 
-    return `*ZH KITCHEN ORDER*
+    return `*ZH KITCHEN ORDER*('\n')
+    Hallo Saya ingin memesan yang sesuai dengan form ini:
 ======================
 ${items}
 ======================
-Total: ${formatPrice(getTotalPrice())}
+💸Total: ${formatPrice(getTotalPrice())}
 
 Detail Customer:
-Nama: ${customerName}
-No. HP: ${customerPhone}
-Alamat: ${customerAddress}
+
+🪪Nama: ${customerName}
+📱No. HP: ${customerPhone}
+📍Alamat: ${customerAddress}
 ======================
 
-Terima kasih telah memesan di ZH Kitchen!`
+Terima kasih saya tunggu balasannya`
   }
 
   const handleWhatsAppOrder = () => {
