@@ -1,10 +1,47 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { ArrowRight, ShoppingBag, Sparkles } from 'lucide-react'
 
+gsap.registerPlugin(ScrollTrigger)
+
 export function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+
+  useEffect(() => {
+    if (!titleRef.current || !sectionRef.current) return
+
+    const ctx = gsap.context(() => {
+      gsap.from(titleRef.current, {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.3,
+      })
+
+      gsap.to(sectionRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        },
+        opacity: 0.9,
+        scale: 0.98,
+      })
+    }, sectionRef)
+
+    return () => {
+      ctx.revert()
+    }
+  }, [])
+
   const scrollToMenu = () => {
     document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -48,7 +85,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative py-16 md:py-24 px-4 text-center overflow-hidden bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
+    <section ref={sectionRef} className="relative py-16 md:py-24 px-4 text-center overflow-hidden bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -140,6 +177,7 @@ export function HeroSection() {
         </motion.div>
 
         <motion.h1 
+          ref={titleRef}
           variants={itemVariants}
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 dark:from-orange-400 dark:via-amber-400 dark:to-yellow-400 animate-gradient-shift"
           style={{ backgroundSize: '200% 200%' }}

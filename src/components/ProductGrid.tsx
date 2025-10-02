@@ -1,9 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ProductCard } from './ProductCard'
 import { Sparkles } from 'lucide-react'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface Product {
   id: string
@@ -26,10 +30,50 @@ interface ProductGridProps {
 
 export function ProductGrid({ products }: ProductGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const gridRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
 
   const filteredProducts = selectedCategory === 'all' 
     ? products 
     : products.filter(product => product.category === selectedCategory)
+
+  useEffect(() => {
+    if (!gridRef.current || !titleRef.current) return
+
+    const ctx = gsap.context(() => {
+      gsap.from(titleRef.current, {
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse',
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+      })
+
+      const cards = gridRef.current!.querySelectorAll('.product-card-gsap')
+      gsap.from(cards, {
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 70%',
+          end: 'bottom 30%',
+          toggleActions: 'play none none reverse',
+        },
+        y: 80,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+      })
+    }, gridRef)
+
+    return () => {
+      ctx.revert()
+    }
+  }, [filteredProducts])
 
   const categories = [
     { id: 'all', name: 'Semua' },
@@ -42,6 +86,7 @@ export function ProductGrid({ products }: ProductGridProps) {
   return (
     <div className="max-w-6xl mx-auto">
       <motion.div 
+        ref={titleRef}
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -92,12 +137,14 @@ export function ProductGrid({ products }: ProductGridProps) {
 
       {/* Products Grid */}
       <motion.div 
+        ref={gridRef}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         layout
       >
         {filteredProducts.map((product, index) => (
           <motion.div 
             key={product.id}
+            className="product-card-gsap"
             layout
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
