@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useState } from 'react'
 import Image from 'next/image'
 import { useOrder } from '@/context/OrderContext'
-import { ShoppingCart, Plus, Star } from 'lucide-react'
+import { Plus, Star } from 'lucide-react'
 
 interface Product {
   id: string
@@ -28,8 +27,6 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const { addToOrder } = useOrder()
   const [selectedVariant, setSelectedVariant] = useState<string | null>(null)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
   
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -55,13 +52,7 @@ export function ProductCard({ product }: ProductCardProps) {
   }
 
   return (
-    <motion.div 
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-orange-300 dark:hover:border-orange-700 hover:-translate-y-1"
-    >
+    <div className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-lg hover:border-orange-300 dark:hover:border-orange-700">
       {/* Image Section */}
       <div className="relative h-48 bg-gradient-to-br from-orange-100 to-amber-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
         <Image
@@ -69,30 +60,20 @@ export function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-2"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <motion.div
-          className="absolute top-2 right-2 bg-orange-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100"
-          initial={{ scale: 0, rotate: -180 }}
-          whileInView={{ scale: 1, rotate: 0 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="absolute top-2 right-2 bg-orange-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <Star className="w-4 h-4" fill="currentColor" />
-        </motion.div>
+        </div>
       </div>
 
       {/* Content Section */}
       <div className="p-5">
-        <motion.h3 
-          className="text-lg font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-300"
-          whileHover={{ x: 5 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-        >
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
           {product.name}
-        </motion.h3>
+        </h3>
         
-        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 transition-colors duration-300 line-clamp-2">
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2">
           {product.description}
         </p>
 
@@ -127,38 +108,21 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Price and Action */}
         <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
           <div>
-            <p className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300">Harga</p>
-            <motion.p 
-              className="text-xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400 bg-clip-text text-transparent"
-              initial={{ scale: 1 }}
-              whileHover={{ scale: 1.05 }}
-            >
+            <p className="text-xs text-gray-500 dark:text-gray-400">Harga</p>
+            <p className="text-xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400 bg-clip-text text-transparent">
               {formatPrice(product.price)}
-            </motion.p>
+            </p>
           </div>
           
-          <motion.button
+          <button
             onClick={handleAddToOrder}
-            className="group/btn relative flex items-center gap-2 bg-gradient-to-br from-orange-500 via-orange-600 to-amber-600 hover:from-orange-600 hover:via-orange-700 hover:to-amber-700 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden"
-            whileHover={{ scale: 1.08, y: -3, rotate: 2 }}
-            whileTap={{ scale: 0.92 }}
+            className="flex items-center gap-2 bg-gradient-to-br from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white px-6 py-3 rounded-full font-bold shadow-md hover:shadow-lg transition-all duration-200"
           >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-400/40 to-yellow-400/0"
-              animate={{
-                x: ['-100%', '100%'],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            />
-            <Plus className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover/btn:rotate-180" />
-            <span className="relative z-10">Pesan</span>
-          </motion.button>
+            <Plus className="w-5 h-5" />
+            <span>Pesan</span>
+          </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
