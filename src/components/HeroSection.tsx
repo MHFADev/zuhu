@@ -198,28 +198,33 @@ export function HeroSection() {
         >
           <motion.button
             onClick={scrollToMenu}
-            className="group relative flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-semibold rounded-full overflow-hidden shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="group relative flex items-center gap-2 px-8 py-4 bg-gradient-to-br from-orange-500 via-orange-600 to-amber-600 text-white font-bold rounded-full overflow-hidden shadow-2xl"
+            whileHover={{ scale: 1.08, rotate: 2 }}
+            whileTap={{ scale: 0.92 }}
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-orange-700 to-amber-700"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
+              className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-400/50 to-yellow-400/0"
+              animate={{
+                x: ['-100%', '100%'],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
             />
             <span className="relative z-10">Lihat Menu</span>
-            <ArrowRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-2" />
           </motion.button>
 
           <motion.button
             onClick={scrollToOrder}
-            className="group flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-orange-600 dark:border-orange-400 text-orange-600 dark:text-orange-400 font-semibold rounded-full hover:bg-orange-600 hover:text-white dark:hover:bg-orange-400 dark:hover:text-gray-900 transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="group relative flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border-3 border-orange-500 dark:border-orange-400 text-orange-600 dark:text-orange-300 font-bold rounded-full hover:bg-gradient-to-br hover:from-orange-500 hover:to-amber-600 hover:text-white hover:border-transparent dark:hover:from-orange-400 dark:hover:to-amber-500 transition-all duration-500 shadow-lg hover:shadow-2xl overflow-hidden"
+            whileHover={{ scale: 1.08, rotate: -2 }}
+            whileTap={{ scale: 0.92 }}
           >
-            <ShoppingBag className="w-5 h-5" />
-            Pesan Sekarang
+            <ShoppingBag className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:scale-110" />
+            <span className="relative z-10">Pesan Sekarang</span>
           </motion.button>
         </motion.div>
       </motion.div>
