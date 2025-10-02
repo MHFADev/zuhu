@@ -45,11 +45,11 @@ export function Footer() {
               </a>
               <p className="flex items-center gap-2 text-gray-400">
                 <Mail className="w-4 h-4" />
-                
+                --None--
               </p>
               <p className="flex items-center gap-2 text-gray-400">
                 <MapPin className="w-4 h-4" />
-                Jl. Raya Kuliner No. 123
+                Jl. H. Abdul rojak Rt01 Rw 05 No. 109
               </p>
             </div>
           </div>
