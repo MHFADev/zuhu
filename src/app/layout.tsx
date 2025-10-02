@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   description: 'Discover traditional Indonesian pastries and modern treats at ZH Kitchen. Order fresh bolen, onde-onde, kue sus, and more for delivery.',
   keywords: 'Indonesian pastries, traditional cakes, bolen pisang, onde-onde, kue sus, pastel goreng, risol mayo, ZH Kitchen',
   authors: [{ name: 'ZH Kitchen' }],
+  icons: {
+    icon: [
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+    shortcut: '/logo.png',
+  },
 }
 
 export const viewport = {

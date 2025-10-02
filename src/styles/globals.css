@@ -21,31 +21,31 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar with gradient */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-900;
+  @apply bg-orange-50 dark:bg-gray-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600;
+  @apply bg-gradient-to-b from-orange-500 to-amber-600 dark:from-orange-600 dark:to-amber-700 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500 dark:bg-gray-500;
+  @apply from-orange-600 to-amber-700 dark:from-orange-500 dark:to-amber-600;
 }
 
-/* Custom selection */
+/* Custom selection with orange theme */
 ::selection {
-  @apply bg-primary-200 text-primary-900;
+  @apply bg-orange-200 text-orange-900 dark:bg-orange-900 dark:text-orange-100;
 }
 
 ::-moz-selection {
-  @apply bg-primary-200 text-primary-900;
+  @apply bg-orange-200 text-orange-900 dark:bg-orange-900 dark:text-orange-100;
 }
 
 /* Utility classes */
@@ -75,11 +75,15 @@ html {
   }
 
   .shadow-glow {
-    box-shadow: 0 0 20px rgba(240, 119, 11, 0.3);
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
   }
 
   .shadow-glow-lg {
-    box-shadow: 0 0 40px rgba(240, 119, 11, 0.4);
+    box-shadow: 0 0 40px rgba(249, 115, 22, 0.5);
+  }
+  
+  .shadow-glow-orange {
+    box-shadow: 0 10px 30px -10px rgba(249, 115, 22, 0.5);
   }
 
   .gradient-text {
