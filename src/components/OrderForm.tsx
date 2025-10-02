@@ -11,6 +11,12 @@ interface Product {
   price: number
   category: string
   image: string
+  hasVariants?: boolean
+  variants?: Array<{
+    id: string
+    name: string
+    price: number
+  }>
 }
 
 interface OrderFormProps {
@@ -32,6 +38,8 @@ export function OrderForm({ products }: OrderFormProps) {
   const [customerName, setCustomerName] = useState('')
   const [customerAddress, setCustomerAddress] = useState('')
   const [customerPhone, setCustomerPhone] = useState('')
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [selectedVariant, setSelectedVariant] = useState<string | null>(null)
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -39,6 +47,28 @@ export function OrderForm({ products }: OrderFormProps) {
       currency: 'IDR',
       minimumFractionDigits: 0,
     }).format(price)
+  }
+
+  const handleProductClick = (product: Product) => {
+    if (product.hasVariants && product.variants) {
+      setSelectedProduct(product)
+      setSelectedVariant(null)
+    } else {
+      addToOrder(product)
+    }
+  }
+
+  const handleAddVariantToOrder = () => {
+    if (!selectedProduct || !selectedVariant) {
+      alert('Pilih varian terlebih dahulu')
+      return
+    }
+    const variant = selectedProduct.variants?.find(v => v.id === selectedVariant)
+    if (variant) {
+      addToOrder({ ...selectedProduct, id: variant.id, name: variant.name, price: variant.price })
+    }
+    setSelectedProduct(null)
+    setSelectedVariant(null)
   }
 
   const generateWhatsAppMessage = () => {
@@ -123,11 +153,14 @@ Terima kasih saya tunggu balasannya`
                   <button
                     key={product.id}
                     className="group relative flex items-center gap-3 p-4 rounded-2xl border-2 border-gray-200 dark:border-gray-600 hover:border-orange-400 dark:hover:border-orange-500 hover:bg-gradient-to-br hover:from-orange-50 hover:to-amber-50 dark:hover:from-orange-900/20 dark:hover:to-amber-900/20 transition-all duration-500 transform hover:scale-105 hover:-rotate-1 shadow-sm hover:shadow-xl overflow-hidden"
-                    onClick={() => addToOrder(product)}
+                    onClick={() => handleProductClick(product)}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-400/0 via-orange-400/20 to-orange-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                     <div className="flex-1 text-left relative z-10">
-                      <div className="font-medium text-gray-900 dark:text-white group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors">{product.name}</div>
+                      <div className="font-medium text-gray-900 dark:text-white group-hover:text-orange-700 dark:group-hover:text-orange-300 transition-colors">
+                        {product.name}
+                        {product.hasVariants && <span className="text-xs ml-2 text-orange-500">(pilih varian)</span>}
+                      </div>
                       <div className="text-sm text-gray-600 dark:text-gray-400">
                         {formatPrice(product.price)}
                       </div>
@@ -224,6 +257,73 @@ Terima kasih saya tunggu balasannya`
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
               <Send className="w-6 h-6 relative z-10 transition-transform duration-300 group-hover:translate-x-2 group-hover:rotate-12" />
               <span className="relative z-10">Pesan via WhatsApp</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Variant Selection Modal */}
+      {selectedProduct && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[60] transition-all duration-300"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <div
+            className="bg-white dark:bg-gray-800 p-6 w-full max-w-md rounded-3xl border-2 border-orange-300 dark:border-orange-700 shadow-2xl transform transition-all duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                {selectedProduct.name}
+              </h3>
+              <button
+                onClick={() => setSelectedProduct(null)}
+                className="text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 hover:rotate-90 transform hover:scale-125 rounded-full p-2 hover:bg-red-50 dark:hover:bg-red-900/20"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-gray-600 dark:text-gray-400 mb-4">Pilih Varian:</p>
+            
+            <div className="space-y-3 mb-6">
+              {selectedProduct.variants?.map((variant) => (
+                <label
+                  key={variant.id}
+                  className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
+                    selectedVariant === variant.id
+                      ? 'border-orange-500 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30'
+                      : 'border-gray-200 dark:border-gray-600 hover:border-orange-300 dark:hover:border-orange-600'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name={`variant-${selectedProduct.id}`}
+                      value={variant.id}
+                      checked={selectedVariant === variant.id}
+                      onChange={(e) => setSelectedVariant(e.target.value)}
+                      className="w-5 h-5 accent-orange-600 dark:accent-orange-400"
+                    />
+                    <div>
+                      <div className="font-medium text-gray-900 dark:text-white">
+                        {variant.name}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        {formatPrice(variant.price)}
+                      </div>
+                    </div>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            <button
+              onClick={handleAddVariantToOrder}
+              className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 hover:from-orange-600 hover:via-orange-700 hover:to-amber-700 text-white py-4 rounded-full font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed"
+              disabled={!selectedVariant}
+            >
+              Tambah ke Keranjang
             </button>
           </div>
         </div>
