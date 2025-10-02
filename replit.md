@@ -75,15 +75,57 @@ Preferred communication style: Simple, everyday language.
 ## Environment Variables
 - **NEXT_PUBLIC_WHATSAPP_NUMBER**: WhatsApp business number for order integration
 
-# Recent Changes (September 30, 2025)
+# Recent Changes
 
-## Design Improvements
+## October 2, 2025 - Enhanced Animations and Visual Design
+
+### Favicon Implementation
+- Added comprehensive favicon configuration in layout.tsx
+- Multi-size icon support (16x16, 32x32, 180x180) for all devices
+- Apple touch icon and shortcut icon configured
+
+### Animation System Overhaul
+- **Framer Motion Integration**: Added smooth component-level animations across all major sections
+  - HeroSection: Floating logo, staggered content reveal, animated gradient backgrounds
+  - ProductCard: Scroll-triggered fade-in animations with spring physics
+  - ProductGrid: Staggered category buttons and product reveals
+  - Header: Slide-down animation, rotating logo on hover, animated navigation links
+  - Footer: Scroll-triggered content animations with Heart pulse effect
+  
+- **GSAP ScrollTrigger**: Integrated professional scroll-based animations
+  - HeroSection: Parallax-style opacity and scale effects on scroll
+  - ProductGrid: Staggered card reveal animations with proper cleanup
+  - Proper cleanup implementation using gsap.context() to prevent memory leaks
+
+### Design Theme Update
+- Shifted from gray theme to vibrant orange/amber gradient scheme
+- Custom gradient scrollbar with orange accent colors
+- Orange-themed text selection for better brand consistency
+- Animated gradient backgrounds with floating decorative elements
+- Enhanced button designs with gradient fills and smooth hover states
+
+### Visual Enhancements
+- Added 11 new custom Tailwind animations (float, gradient-shift, pulse-slow, shimmer, wiggle, etc.)
+- Improved scrollbar styling with gradient effects
+- Enhanced product cards with rounded corners, gradient backgrounds, and star badges
+- Decorative animated background elements in Hero and Footer sections
+- Orange/amber gradient text for headings and branding elements
+
+### Technical Improvements
+- Fixed React hydration warnings in ProductCard radio inputs
+- Implemented proper GSAP cleanup to prevent ScrollTrigger memory leaks
+- Optimized animation performance with context-based scoping
+- Maintained WebP/AVIF image optimization configuration
+
+## September 30, 2025 - Initial Design Implementation
+
+### Design Improvements
 - Enhanced Hero Section with sophisticated gradients, floating food icons, animated CTA buttons, and trust indicators
 - Upgraded Header with glassmorphism effect, scroll-based animations, responsive mobile menu with hamburger animation
 - Modernized Product Cards with advanced hover effects, gradient overlays, quick view badge, and enhanced shadows
 - Professional Footer with 4-column layout, social media links, operating hours, and animated elements
 
-## Deployment Configuration
+### Deployment Configuration
 - Configured Next.js for optimal Vercel deployment (removed standalone output mode)
 - Added vercel.json with Singapore region and function optimizations
 - Created comprehensive .gitignore for proper version control

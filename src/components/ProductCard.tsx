@@ -113,6 +113,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     checked={selectedVariant === variant.id}
                     onChange={(e) => setSelectedVariant(e.target.value)}
                     className="w-4 h-4 accent-orange-600 dark:accent-orange-400"
+                    suppressHydrationWarning
                   />
                   <span className="text-sm text-gray-700 dark:text-gray-300 group-hover/variant:text-gray-900 dark:group-hover/variant:text-white transition-colors duration-200">
                     {variant.name}
