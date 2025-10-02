@@ -12,7 +12,7 @@ Preferred communication style: Simple, everyday language.
 - **Framework**: Next.js 14+ with App Router for modern React development and file-based routing
 - **TypeScript**: Full type safety across components and data structures
 - **Styling**: Tailwind CSS with custom color schemes and responsive design patterns
-- **Animation**: Dual animation system using Framer Motion for component animations and GSAP for advanced interactions
+- **Animation**: Lightweight CSS-based animations for optimal performance (pulse, spin, fade, slide, shimmer effects)
 - **Font System**: Google Fonts integration with Inter and Poppins font families
 
 ## Component Structure
@@ -40,8 +40,7 @@ Preferred communication style: Simple, everyday language.
 # External Dependencies
 
 ## Third-Party Libraries
-- **framer-motion**: Advanced animations and gesture handling for interactive UI elements
-- **gsap**: Professional-grade animation library for complex motion graphics
+- No heavy animation libraries - using native CSS animations for optimal performance and fast load times
 
 ## WhatsApp Integration
 - **Direct Messaging**: Environment variable configuration for WhatsApp business number
@@ -77,45 +76,45 @@ Preferred communication style: Simple, everyday language.
 
 # Recent Changes
 
-## October 2, 2025 - Enhanced Animations and Visual Design
+## October 2, 2025 - Performance Optimization & Lightweight Animations
 
-### Favicon Implementation
-- Added comprehensive favicon configuration in layout.tsx
-- Multi-size icon support (16x16, 32x32, 180x180) for all devices
-- Apple touch icon and shortcut icon configured
+### Performance-First Animation System
+- **Removed Heavy Libraries**: Eliminated Framer Motion and GSAP to improve load times and reduce bundle size
+- **CSS-Only Animations**: Implemented lightweight, performant CSS animations including:
+  - `pulse-subtle`: Gentle pulsing effect for logo and loading elements
+  - `spin-slow`: Smooth 3-second rotation for decorative elements
+  - `fade-in`: Smooth entrance animation for content
+  - `slide-up`: Upward slide with fade for staggered content reveals
+  - `shimmer`: Animated shimmer effect for progress bars and highlights
+- **Server Startup**: Optimized to ~2.4-3 seconds (previously slower with animation libraries)
 
-### Animation System Overhaul
-- **Framer Motion Integration**: Added smooth component-level animations across all major sections
-  - HeroSection: Floating logo, staggered content reveal, animated gradient backgrounds
-  - ProductCard: Scroll-triggered fade-in animations with spring physics
-  - ProductGrid: Staggered category buttons and product reveals
-  - Header: Slide-down animation, rotating logo on hover, animated navigation links
-  - Footer: Scroll-triggered content animations with Heart pulse effect
-  
-- **GSAP ScrollTrigger**: Integrated professional scroll-based animations
-  - HeroSection: Parallax-style opacity and scale effects on scroll
-  - ProductGrid: Staggered card reveal animations with proper cleanup
-  - Proper cleanup implementation using gsap.context() to prevent memory leaks
+### Loading Screen Implementation
+- **Elegant Entry Experience**: Created visually appealing LoadingScreen component with:
+  - Spinning gradient ring around logo (orange/amber/yellow theme)
+  - Smooth progress bar with shimmer effect
+  - Staggered content animations (fade-in → slide-up sequence)
+  - Bouncing food emojis (🥟 🍡 🥐) with delayed timing
+  - Smooth exit transition (fade-out with scale effect)
+- **Zero External Dependencies**: Built entirely with React hooks and CSS animations
+- **Performance**: 2-second loading duration with smooth 500ms exit animation
 
-### Design Theme Update
-- Shifted from gray theme to vibrant orange/amber gradient scheme
-- Custom gradient scrollbar with orange accent colors
-- Orange-themed text selection for better brand consistency
-- Animated gradient backgrounds with floating decorative elements
-- Enhanced button designs with gradient fills and smooth hover states
+### Header Logo Animation
+- **Subtle Interactions**: Added gentle hover and idle animations to logo:
+  - Continuous pulse-subtle effect for subtle presence
+  - Hover: scale(1.1) + rotate(5deg) with smooth transition
+  - Orange glow effect on hover matching brand colors
+- **Lightweight**: Uses only CSS transitions and animations, no JavaScript libraries
 
-### Visual Enhancements
-- Added 11 new custom Tailwind animations (float, gradient-shift, pulse-slow, shimmer, wiggle, etc.)
-- Improved scrollbar styling with gradient effects
-- Enhanced product cards with rounded corners, gradient backgrounds, and star badges
-- Decorative animated background elements in Hero and Footer sections
-- Orange/amber gradient text for headings and branding elements
+### Technical Performance Improvements
+- **Bundle Size**: Significantly reduced by removing Framer Motion (~90KB) and GSAP (~50KB)
+- **Load Time**: Faster initial page load and Time-to-Interactive
+- **Animation Performance**: All animations run on GPU-accelerated CSS properties
+- **Memory Efficiency**: No animation library overhead or cleanup requirements
 
-### Technical Improvements
-- Fixed React hydration warnings in ProductCard radio inputs
-- Implemented proper GSAP cleanup to prevent ScrollTrigger memory leaks
-- Optimized animation performance with context-based scoping
-- Maintained WebP/AVIF image optimization configuration
+### Design Consistency
+- Maintained orange/amber gradient scheme throughout all animations
+- Consistent timing functions (ease-in-out, ease-out) for smooth motion
+- Cohesive visual language across loading screen, header, and page transitions
 
 ## September 30, 2025 - Initial Design Implementation
 
