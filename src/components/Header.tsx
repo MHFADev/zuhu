@@ -19,14 +19,17 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3">
-            <Image 
-              src="/logo.png" 
-              alt="ZH Kitchen Logo" 
-              width={40} 
-              height={40}
-              className="rounded-lg ring-2 ring-orange-200 dark:ring-orange-900/50"
-            />
+          <a href="#" className="flex items-center gap-3 group">
+            <div className="relative">
+              <Image 
+                src="/logo.png" 
+                alt="ZH Kitchen Logo" 
+                width={40} 
+                height={40}
+                className="rounded-lg ring-2 ring-orange-200 dark:ring-orange-900/50 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 animate-pulse-subtle"
+              />
+              <div className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-amber-400 rounded-lg blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+            </div>
             <div>
               <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400 bg-clip-text text-transparent">
                 ZH Kitchen

@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import { ProductGrid } from '@/components/ProductGrid'
 import { OrderForm } from '@/components/OrderForm'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { HeroSection } from '@/components/HeroSection'
+import { LoadingScreen } from '@/components/LoadingScreen'
 import productsData from '@/data/products.json'
 
 interface Product {
@@ -23,7 +25,12 @@ interface Product {
 }
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
   const products: Product[] = productsData.products
+
+  if (isLoading) {
+    return <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
